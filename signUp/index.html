@@ -18,5 +18,45 @@
         </div>
       </section>
     </main>
+    <p style="color: var(--muted)">Clean design, fast validation in plain JavaScript.</p>
+          <form id="registerForm" novalidate>
+            <div class="input-row">
+              <label>
+                Full name
+                <input type="text" name="name" placeholder="e.g. Eliza Berisha" required />
+                <span class="error"></span>
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" placeholder="e.g. eliza@example.com" required />
+                <span class="error"></span>
+              </label>
+            </div>
+            <div class="input-row">
+              <label>
+                Password
+                <input type="password" name="password" placeholder="Min 6 characters" required />
+                <span class="error"></span>
+              </label>
+              <label>
+                Confirm password
+                <input type="password" name="confirm" placeholder="Repeat your password" required />
+                <span class="error"></span>
+              </label>
+            </div>
+            <label style="display: inline-flex; gap: 8px; align-items: center; font-weight: 500">
+              <input type="checkbox" style="width:auto" /> Send me green offers and tips
+            </label>
+            <button class="pill signup-btn" type="submit">Create account</button>
+            <p>
+              Already have an account? <a class="link-ghost" href="login.html">Log in</a>
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer></footer>
+    <script src="assets/js/main.js"></script>
   </body>
 </html>
