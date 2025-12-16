@@ -1,0 +1,222 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+/* =====================
+   VARIABLES
+===================== */
+:root {
+  --green: #2f9e77;
+  --green-dark: #1f7a5a;
+  --cream: #f6fbf7;
+  --text: #0f1a15;
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  --radius: 16px;
+}
+
+/* =====================
+   BASE
+===================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: var(--cream);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* =====================
+   HEADER (shared)
+===================== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+/* =====================
+   HERO SECTION
+===================== */
+.hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: center;
+  gap: 32px;
+  padding: 70px 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.hero h1 {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 5vw, 42px);
+}
+
+.tag {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #e4fbef;
+  color: var(--green-dark);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* =====================
+   BUTTONS
+===================== */
+.pill {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pill.secondary {
+  background: #f3fbf6;
+  color: var(--green-dark);
+  border: 1px solid rgba(47, 158, 119, 0.4);
+}
+
+.pill:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+/* =====================
+   SLIDER (Home)
+===================== */
+.slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.slide {
+  display: none;
+  min-height: 260px;
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.slide.active {
+  display: block;
+}
+
+.slide .overlay {
+  background: linear-gradient(
+    120deg,
+    rgba(47, 158, 119, 0.85),
+    rgba(15, 26, 21, 0.7)
+  );
+  border-radius: var(--radius);
+  padding: 18px;
+  height: 100%;
+}
+
+/* =====================
+   SECTION TITLE
+===================== */
+.section-title {
+  max-width: 1200px;
+  margin: 10px auto 0;
+  padding: 0 28px;
+}
+
+.section-title h2 {
+  margin: 0;
+}
+
+/* =====================
+   PRODUCTS GRID
+===================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  padding: 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 {
+  margin: 0;
+}
+
+.price {
+  font-weight: 700;
+  color: var(--green-dark);
+}
+
+/* =====================
+   FOOTER (shared)
+===================== */
+footer {
+  margin-top: 40px;
+  background: #0f1a15;
+  color: #dce7e0;
+  padding: 24px 28px;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 720px) {
+  .hero {
+    padding: 40px 20px;
+  }
+}
