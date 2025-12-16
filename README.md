@@ -39,9 +39,8 @@ Git & GitHub – Version control
 
 # 🔗 Useful Links
 
-🌐 Live Demo (to be added when published)
 
 🎨 Figma Design
 (https://www.figma.com/site/Wl4GBENLMJ6rTvvh3vjS15/Sweet-Flower-Shop--Community-?node-id=0-1&t=U1GIOBaeeSx2huMy-1)
 
-💻 GitHub Repository (to be added)
+💻 GitHub Repository:https://github.com/dionahakajjj/Tinker-Bell-s-Garden.git
