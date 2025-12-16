@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tinker Bell's Garden | Login</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- header injected via JS -->
+    <header></header>
+
+    <main>
+      <!-- Login form (centered, no hero image) -->
+      <section class="auth-hero login auth-centered">
+        <div class="auth-card">
+          <span class="chip">Login</span>
+          <h1>Access your account</h1>
+          <p style="color: var(--muted)">Friendly UI and quick validation in plain JavaScript.</p>
+          <form id="loginForm" novalidate>
+            <label>
+              Email
+              <input type="email" name="email" placeholder="e.g. eliza@example.com" required />
+              <span class="error"></span>
+            </label>
+            <label>
+              Password
+              <input type="password" name="password" placeholder="Min 6 characters" required />
+              <span class="error"></span>
+            </label>
+            <div style="display: flex; justify-content: space-between; align-items: center">
+              <label style="display: inline-flex; gap: 8px; align-items: center; font-weight: 500">
+                <input type="checkbox" style="width:auto" /> Remember me
+              </label>
+              <a class="link-ghost" href="#">Forgot password?</a>
+            </div>
+            <button class="pill login-btn" type="submit">Login</button>
+            <p>
+              New here?
+              <a class="link-ghost" href="register.html">Create an account</a>
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- footer injected via JS -->
+    <footer></footer>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
