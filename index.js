@@ -1,11 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  // Inject header & footer (shared components)
-  await injectFragment("header", "assets/components/header.html");
-  await injectFragment("footer", "assets/components/footer.html");
-
-  // Highlight active nav link (Home)
-  highlightActiveNav();
-
   // Mobile menu toggle
   const navToggle = document.querySelector(".menu-toggle");
   const navList = document.querySelector("nav ul");
@@ -16,7 +9,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // 🔁 Home slider
   const slides = document.querySelectorAll(".slide");
   if (slides.length > 0) {
     let current = 0;
@@ -28,34 +20,41 @@ document.addEventListener("DOMContentLoaded", async () => {
       slides[current].classList.add("active");
     }, 4200);
   }
-});
 
-/* =====================
-   HELPERS (Home)
-===================== */
+  // Modal Logic
+  const modal = document.getElementById("productModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalDesc = document.getElementById("modalDesc");
+  const closeBtn = document.querySelector(".close-modal");
 
-// Load header/footer
-async function injectFragment(selector, path) {
-  const host = document.querySelector(selector);
-  if (!host) return;
+  if (modal) {
+    // Find all triggers
+    const triggers = document.querySelectorAll(".show-details");
+    
+    triggers.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const title = btn.getAttribute("data-title");
+        const desc = btn.getAttribute("data-desc");
+        
+        if (title && desc) {
+          modalTitle.textContent = title;
+          modalDesc.textContent = desc;
+          modal.style.display = "block";
+        }
+      });
+    });
 
-  try {
-    const res = await fetch(path);
-    if (!res.ok) return;
-    host.outerHTML = await res.text();
-  } catch (err) {
-    console.error("Fragment load failed", err);
-  }
-}
-
-// Mark active navbar link
-function highlightActiveNav() {
-  const links = document.querySelectorAll("nav a");
-  const current = window.location.pathname.split("/").pop() || "index.html";
-
-  links.forEach((link) => {
-    if (link.getAttribute("href").includes(current)) {
-      link.classList.add("active");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
     }
-  });
-}
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  }
+});

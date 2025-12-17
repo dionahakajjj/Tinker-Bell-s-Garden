@@ -43,37 +43,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 });
-
-/* ===== HELPER FUNCTIONS ===== */
-
-function isEmail(value) {
-  return /\S+@\S+\.\S+/.test(value);
-}
-
-function showError(input, message) {
-  const error = input.closest("label").querySelector(".error");
-  error.textContent = message;
-  input.setAttribute("aria-invalid", "true");
-}
-
-function clearErrors(form) {
-  form.querySelectorAll(".error").forEach((err) => {
-    err.textContent = "";
-  });
-  form.querySelectorAll("[aria-invalid]").forEach((el) => {
-    el.removeAttribute("aria-invalid");
-  });
-}
-
-async function injectFragment(selector, path) {
-  const host = document.querySelector(selector);
-  if (!host) return;
-
-  try {
-    const res = await fetch(path);
-    if (!res.ok) return;
-    host.outerHTML = await res.text();
-  } catch (err) {
-    console.error("Fragment load failed", err);
-  }
-}
+  // Redirect script
+  window.location.replace('/contact/');

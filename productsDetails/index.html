@@ -4,12 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tinker Bell's Garden | Product Detail</title>
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
-    <!-- header injected via JS -->
-    <header></header>
-
+    <header>
+      <a href="/" class="logo">
+        <h1>Our Blossoms</h1>
+      </a>
+      <nav>
+        <li><a href="/">Home</a></li>
+        <li><a href="/flowers/">Flowers</a></li>
+        <li><a href="/aboutUs/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/login/">Login</a></li>
+        <li><a href="/signUp/">Register</a></li>
+      </nav>
+    </header>
     <main>
       <section class="hero-card about">
         <h1>Emerald Bouquet</h1>
@@ -32,8 +42,8 @@
             </p>
             <div style="display: flex; gap: 10px; flex-wrap: wrap">
               <button class="pill">Add to cart</button>
-              <a class="pill secondary" href="products.html"
-                >Back to products</a
+              <a class="pill secondary" href="/"
+                >Back to Home</a
               >
             </div>
             <div
@@ -47,9 +57,6 @@
         </div>
       </section>
     </main>
-
-    <!-- footer injected via JS -->
-    <footer></footer>
-    <script src="assets/js/main.js"></script>
   </body>
+  <script src="/assets/js/index.js"></script>
 </html>

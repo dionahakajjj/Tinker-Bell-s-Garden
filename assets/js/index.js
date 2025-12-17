@@ -2,9 +2,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Inject header & footer
   await injectFragment("header", "assets/components/header.html");
   await injectFragment("footer", "assets/components/footer.html");
+
+  // Highlight active nav link
   highlightActiveNav();
 
-  // Mobile menu toggle (header)
+  // Mobile menu toggle
   const navToggle = document.querySelector(".menu-toggle");
   const navList = document.querySelector("nav ul");
 
@@ -15,6 +17,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
+
+// Load HTML fragment (header/footer)
 async function injectFragment(selector, path) {
   const host = document.querySelector(selector);
   if (!host) return;
@@ -27,6 +31,8 @@ async function injectFragment(selector, path) {
   }
 }
 
+
+// Mark active navbar link
 function highlightActiveNav() {
   const links = document.querySelectorAll("nav a");
   const current = window.location.pathname.split("/").pop() || "index.html";
