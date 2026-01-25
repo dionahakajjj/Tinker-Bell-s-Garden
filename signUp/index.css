@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+  --green: #2f9e77;
+  --green-dark: #1f7a5a;
+  --coral: #ff7f6b;
+  --lilac: #9b8cff;
+  --cream: #f6fbf7;
+  --text: #0f1a15;
+  --muted: #4c5f55;
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  --radius: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: var(--cream);
+  line-height: 1.6;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 82px;
+  padding: 0 2rem;
+}
+header nav {
+  display: flex;
+  gap: 1rem;
+}
+header nav li{
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.auth-hero {
+  max-width: 520px;
+  margin: 40px auto 0;
+  padding: 0 24px;
+}
+
+.auth-hero.register {
+  --auth-accent: var(--lilac);
+}
+
+.auth-card {
+  background: #fff;
+  padding: 26px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(47, 158, 119, 0.1);
+  position: relative;
+}
+
+.auth-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  pointer-events: none;
+  border: 2px solid transparent;
+  background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0),
+        rgba(0, 0, 0, 0.02)
+      )
+      padding-box,
+    linear-gradient(120deg, rgba(47, 158, 119, 0.24), rgba(0, 0, 0, 0))
+      border-box;
+}
+
+.auth-card h1 {
+  margin-top: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #eef8f2;
+  color: var(--green-dark);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+form {
+  background: #fff;
+  padding: 22px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+label {
+  font-weight: 600;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #dfe7e1;
+  font-size: 15px;
+  background: #fdfefd;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(47, 158, 119, 0.12);
+}
+
+.error {
+  color: #b3261e;
+  font-size: 14px;
+  min-height: 18px;
+}
+
+.pill {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.pill.signup-btn {
+  background: linear-gradient(120deg, #b3a8ff, #9b8cff);
+  color: #fff;
+}
+
+.link-ghost {
+  color: var(--green-dark);
+  font-weight: 600;
+}
