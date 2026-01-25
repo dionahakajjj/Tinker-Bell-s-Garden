@@ -11,7 +11,7 @@
 <body>
   <header>
     <div class="logo">
-      <h1>Tinker Bell's Garden</h1>
+      <h1>Tinker Belgit l's Garden</h1>
     </div>
     <nav>
       <li><a href="/"><strong>Home</strong></a></li>
