@@ -60,5 +60,66 @@
         </div>
       </div>
     </section>
+    <div class="section-title">
+      <h2>Weekly top picks</h2>
+    </div>
+    <section class="grid">
+      <article class="card">
+        <img src="/assets/js/images/Emerald Bouquet.jpg" alt="Bouquet" loading="lazy" />
+        <h3>Emerald Bouquet</h3>
+        <p>White roses, eucalyptus, and brushed gold accents.</p>
+        <span class="price">€45</span>
+        <button class="pill secondary show-details" data-title="Emerald Bouquet"
+          data-desc="A sophisticated arrangement of premium white roses and eucalyptus foliage, accented with gold details.">See
+          details</button>
+      </article>
+      <article class="card">
+        <img src="/assets/js/images/Veronica bouque.jpg" alt="Succulent" loading="lazy" />
+        <h3>Urban Succulent Trio</h3>
+        <p>Set of three succulents in warm terracotta pots.</p>
+        <span class="price">€25</span>
+        <button class="pill secondary show-details" data-title="Urban Succulent Trio"
+          data-desc="Low-maintenance and trendy, these three succulents come in stylish terracotta pots. Perfect for desks or shelves.">See
+          details</button>
+      </article>
+      <article class="card">
+        <img src="/assets/js/images/Pine Forest Candle.jpg" alt="Candle" loading="lazy" />
+        <h3>Pine Forest Candle</h3>
+        <p>Essential pine oils, hand-poured soy, clean burn.</p>
+        <span class="price">€18</span>
+        <button class="pill secondary show-details" data-title="Pine Forest Candle"
+          data-desc="Bring the scent of the forest indoors with this hand-poured soy candle. Features a clean burn and essential pine oils.">See
+          details</button>
+      </article>
+      <article class="card">
+        <img src="/assets/js/images/Sunrise Pastels.jpg" alt="Colorful bouquet" loading="lazy" />
+        <h3>Sunrise Pastels</h3>
+        <p>Ranunculus, peach roses, blush dahlias, airy greenery.</p>
+        <span class="price">€52</span>
+        <button class="pill secondary show-details" data-title="Sunrise Pastels"
+          data-desc="A dreamy mix of soft pastels featuring ranunculus and roses. Guaranteed to brighten anyone's day.">See
+          details</button>
+      </article>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
+  </footer>
+
+  <script src="./index.js"></script>
+</body>
+
+</html>
+
 
    
