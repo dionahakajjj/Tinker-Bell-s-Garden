@@ -342,90 +342,121 @@ footer p {
 /* =====================
    AUTH PAGE REFINEMENTS
 ===================== */
+/* =====================
+   AUTH PAGE REFINEMENTS
+===================== */
 .auth-hero {
   flex: 1;
-  /* Grow to fill space */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+  padding: 60px 20px;
+  /* Keeping a subtle overlay but much lighter/cleaner */
+  background-image: linear-gradient(rgba(246, 251, 247, 0.4), rgba(246, 251, 247, 0.6)),
     url('https://images.unsplash.com/photo-1483794344563-d27a8d18014e?auto=format&fit=crop&w=1400&q=80');
   background-size: cover;
   background-position: center;
-  padding: 40px 20px;
+  min-height: calc(100vh - 82px - 70px);
 }
 
 .auth-card {
   background: #fff;
-  padding: 48px;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  padding: 48px 40px;
+  border-radius: var(--radius);
+  /* Matching standard shadow */
+  box-shadow: var(--shadow);
   width: 100%;
-  max-width: 460px;
-  /* Slightly wider for modern feel */
+  max-width: 480px;
   text-align: center;
-  animation: slideIn 0.4s ease-out;
+  /* No border needed for standard card */
+  animation: fadeIn 0.4s ease-out;
 }
 
 .auth-card h1 {
   font-family: 'Playfair Display', serif;
   color: var(--green-dark);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   font-size: 2.2rem;
 }
 
-/* =====================
-   SPLIT SCREEN AUTH (Disabled/Removed)
-===================== */
-/* Styles removed as user requested centered layout */
+.auth-card p {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
 
-.close-modal {
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  line-height: 1;
+/* Standard Input Styling (already global, but refined here if needed) */
+.auth-card input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  height: 52px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.auth-card input:focus {
+  border-color: var(--green);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(47, 158, 119, 0.1);
+}
+
+.auth-card label {
+  text-align: left;
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.input-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.input-row label {
+  flex: 1;
+}
+
+/* Standard Button Behavior */
+.auth-card .pill {
+  width: 100%;
+  margin-top: 16px;
+  font-size: 1rem;
+  /* Use global pill styles */
+}
+
+.auth-footer {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.link-ghost {
+  color: var(--green-dark);
+  font-weight: 600;
   transition: color 0.2s;
 }
 
-.close-modal:hover {
-  color: #000;
-}
-
-#modalTitle {
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 16px;
-  color: #2c3e50;
-  font-size: 1.5rem;
-}
-
-#modalDesc {
-  color: #666;
-  line-height: 1.6;
+.link-ghost:hover {
+  color: var(--green);
+  text-decoration: underline;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
 
   to {
     opacity: 1;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-
-  to {
     transform: translateY(0);
-    opacity: 1;
   }
 }
 
@@ -436,7 +467,6 @@ footer p {
   max-width: 90%;
   width: 1200px;
   margin: 40px auto 10px;
-  /* Reduced bottom margin */
   padding: 60px 40px;
   text-align: center;
 }
@@ -465,7 +495,6 @@ footer p {
 .grid-3 {
   grid-template-columns: repeat(3, 1fr);
   max-width: 950px;
-  /* Constrain width to make cards smaller (closer to main page size) */
 }
 
 @media (max-width: 900px) {

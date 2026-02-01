@@ -1,91 +1,64 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tinker Bell's Garden | Login</title>
-    <link rel="stylesheet" href="index.css" />
-  </head>
 
-  <body>
-    <header>
-      <div class="logo">
-        <h1>Tinker Bell's Garden</h1>
-      </div>
-      <nav>
-        <li><a href="/"><strong>Home</strong></a></li>
-        <li><a href="/flowers/">Flowers</a></li>
-        <li><a href="/aboutUs/">About</a></li>
-        <li><a href="/contact/">Contact</a></li>
-        <li><a href="/login/">Login</a></li>
-        <li><a href="/signUp/">Register</a></li>
-      </nav>
-    </header>
-    <main>
-      <section class="auth-hero login auth-centered">
-        <div class="auth-card">
-          <span class="badge">Welcome back</span>
-          <h1>Access your account</h1>
-          <p style="color: var(--muted); margin-bottom: 24px">
-            Sign in to access your orders, favorites and manage your profile.
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tinker Bell's Garden | Login</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <h1>Tinker Bell's Garden</h1>
+    </div>
+    <nav>
+      <li><a href="/">Home</a></li>
+      <li><a href="/flowers/">Flowers</a></li>
+      <li><a href="/aboutUs/">About</a></li>
+      <li><a href="/contact/">Contact</a></li>
+      <li><a href="/login/"><strong>Login</strong></a></li>
+      <li><a href="/signUp/">Register</a></li>
+    </nav>
+  </header>
+  <main>
+    <section class="auth-hero login auth-centered">
+      <div class="auth-card">
+
+        <h1>Access your account</h1>
+        <p style="color: var(--muted); margin-bottom: 32px">Welcome back! Please enter your details.</p>
+        <form id="loginForm" novalidate>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="e.g. name@example.com" required />
+            <span class="error"></span>
+          </label>
+          <label>
+            Password
+            <input type="password" name="password" placeholder="Min 6 characters" required />
+            <span class="error"></span>
+          </label>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+            <label style="display: inline-flex; gap: 8px; align-items: center; font-weight: 500">
+              <input type="checkbox" style="width:auto" /> Remember me
+            </label>
+            <a class="link-ghost" href="#">Forgot password?</a>
+          </div>
+          <button class="pill login-btn" type="submit" style="width: 100%; margin-top: 24px;">Login</button>
+          <p style="margin-top: 24px;">
+            New here?
+            <a class="link-ghost" href="/signUp/">Create an account</a>
           </p>
-          <form id="loginForm" novalidate>
-            <label>
-              Email
-              <input
-                type="email"
-                name="email"
-                placeholder="e.g. name@example.com"
-                required
-              />
-              <span class="error"></span>
-            </label>
-            <label>
-              Password
-              <input
-                type="password"
-                name="password"
-                placeholder="Min 6 characters"
-                required
-              />
-              <span class="error"></span>
-            </label>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px;">
-              <label style="display:inline-flex; gap:8px; align-items:center; font-weight:500;">
-                <input type="checkbox" style="width:auto" /> Remember me
-              </label>
-              <a class="link-ghost" href="#">Forgot password?</a>
-            </div>
-            <button
-              class="pill login-btn"
-              type="submit"
-              style="width: 100%; margin-top: 24px"
-            >
-              Login
-            </button>
-            <p style="margin-top: 24px">
-              New here?
-              <a class="link-ghost" href="/signUp/">Create an account</a>
-            </p>
-          </form>
-        </div>
-      </section>
-    </main>
-    <footer>
-      <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
-    </footer>
-    <script src="../assets/js/auth.js"></script>
-    <script>
-      // mark active nav link
-      (function(){
-        const path = location.pathname.replace(/\/$/, '') || '/';
-        document.querySelectorAll('header nav a').forEach(a=>{
-          try{
-            const href = new URL(a.href).pathname.replace(/\/$/, '') || '/';
-            if(href === path) a.classList.add('active');
-          }catch(e){}
-        });
-      })();
-    </script>
-  </body>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
+  </footer>
+  <script src="/index.js"></script>
+  <script src="../assets/js/auth.js"></script>
+</body>
+
 </html>
