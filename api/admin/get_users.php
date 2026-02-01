@@ -4,7 +4,7 @@ require_once '../../config/db.php';
 
 header("Content-Type: application/json");
 
-$sql = "SELECT id, name, email, role, created_at FROM users ORDER BY created_at DESC";
+$sql = "SELECT id, full_name as name, email, role, created_at FROM users ORDER BY created_at DESC";
 $result = $conn->query($sql);
 
 $users = [];
