@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tinker Bell's Garden | Sign Up</title>
+    <link rel="stylesheet" href="../index.css" />
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>Tinker Bell's Garden</h1>
+        </div>
+        <nav>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../flowers/index.html">Flowers</a></li>
+            <li><a href="../aboutUs/index.html">About</a></li>
+            <li><a href="../contact/index.html">Contact</a></li>
+            <li><a href="../logIn/index.html">Login</a></li>
+            <li><a href="index.html"><strong>Register</strong></a></li>
+        </nav>
+    </header>
+    <main>
+        <section class="auth-hero register auth-centered">
+            <div class="auth-card">
+                <h1>Join Tinker Bell's Garden</h1>
+                <p style="color: #555; margin-bottom: 32px">
+                    Create an account to track orders and save favorites.
+                </p>
+                <form id="registerForm" novalidate>
+                    <div class="input-row">
+                        <label>
+                            Full name
+                            <input type="text" name="name" placeholder="e.g. name surname" required />
+                            <span class="error"></span>
+                        </label>
+                        <label>
+                            Email
+                            <input type="email" name="email" placeholder="e.g. name@example.com" required />
+                            <span class="error"></span>
+                        </label>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="input-group" style="flex: 1;">
+                            <label>Password</label>
+                            <input type="password" name="password" placeholder="Min 6 characters" required />
+                            <span class="error"></span>
+                        </div>
+                        <div class="input-group" style="flex: 1;">
+                            <label>Confirm Password</label>
+                            <input type="password" name="confirm" placeholder="Repeat password" required />
+                            <span class="error"></span>
+                        </div>
+                    </div>
+
+                    <label style="
+                display: inline-flex;
+                gap: 8px;
+                align-items: center;
+                font-weight: 500;
+                margin-top: 16px;
+                cursor: pointer;
+                color: #555;
+                font-size: 0.95rem;
+              ">
+                        <input type="checkbox" style="width: 18px; height: 18px; accent-color: var(--green);" />
+                        Send me green offers and tips
+                    </label>
+
+                    <button class="pill signup-btn" type="submit" style="width: 100%; margin-top: 24px;">Create
+                        Account</button>
+
+                    <div class="auth-footer">
+                        <p style="margin: 0; font-size: 1rem;">
+                            Already have an account?
+                            <a class="link-ghost" href="../logIn/index.html">Log in</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
+    </footer>
+    <script src="../index.js"></script>
+</body>
+
+</html>
