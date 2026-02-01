@@ -19,14 +19,14 @@ if (!isset($data->email) || !isset($data->password)) {
 $email = $conn->real_escape_string($data->email);
 $password = $data->password;
 
-$sql = "SELECT id, name, email, password, role FROM users WHERE email = '$email'";
+$sql = "SELECT id, full_name, email, password, COALESCE(role, 'user') as role FROM users WHERE email = '$email'";
 $result = $conn->query($sql);
 
 if ($result->num_rows === 1) {
     $user = $result->fetch_assoc();
     if (password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['name'] = $user['name'];
+        $_SESSION['name'] = $user['full_name'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = $user['role'];
 
@@ -35,7 +35,7 @@ if ($result->num_rows === 1) {
             "message" => "Login successful",
             "user" => [
                 "id" => $user['id'],
-                "name" => $user['name'],
+                "name" => $user['full_name'],
                 "email" => $user['email'],
                 "role" => $user['role']
             ]
