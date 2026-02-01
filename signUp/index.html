@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tinker Bell's Garden | Sign Up</title>
-    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="index.css" />
   </head>
 
   <body>
@@ -13,22 +13,21 @@
         <h1>Tinker Bell's Garden</h1>
       </div>
       <nav>
-        <li><a href="/">Home</a></li>
+        <li><a href="/"><strong>Home</strong></a></li>
         <li><a href="/flowers/">Flowers</a></li>
         <li><a href="/aboutUs/">About</a></li>
         <li><a href="/contact/">Contact</a></li>
         <li><a href="/login/">Login</a></li>
-        <li>
-          <a href="/signUp/"><strong>Register</strong></a>
-        </li>
+        <li><a href="/signUp/"><strong>Register</strong></a></li>
       </nav>
     </header>
     <main>
       <section class="auth-hero register auth-centered">
         <div class="auth-card">
+          <span class="badge">Join us</span>
           <h1>Join Tinker Bell's Garden</h1>
-          <p style="color: var(--muted); margin-bottom: 32px">
-            Create an account to track orders and save favorites.
+          <p style="color: var(--muted); margin-bottom: 24px">
+            Create an account to track orders, save favorites and get green offers.
           </p>
           <form id="registerForm" novalidate>
             <div class="input-row">
@@ -105,6 +104,18 @@
     <footer>
       <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
     </footer>
-    <script src="/index.js"></script>
+    <script src="index.js"></script>
+    <script>
+      // mark active nav link
+      (function(){
+        const path = location.pathname.replace(/\/$/, '') || '/';
+        document.querySelectorAll('header nav a').forEach(a=>{
+          try{
+            const href = new URL(a.href).pathname.replace(/\/$/, '') || '/';
+            if(href === path) a.classList.add('active');
+          }catch(e){}
+        });
+      })();
+    </script>
   </body>
 </html>

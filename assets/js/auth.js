@@ -1,15 +1,26 @@
 const Auth = {
     login: async (email, password) => {
         try {
-            const response = await fetch('../api/auth/login.php', {
+            // POST to the server-side login endpoint used in this project
+            const response = await fetch('/backend-db/login.php', {
                 method: 'POST',
+                credentials: 'same-origin',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify({ email, password })
+                body: new URLSearchParams({ email, password })
             });
 
-            const data = await response.json();
+            // Try to parse JSON; if server returned HTML (error page), surface it in console
+            let data;
+            const ct = response.headers.get('content-type') || '';
+            if (ct.includes('application/json')) {
+                data = await response.json();
+            } else {
+                const text = await response.text();
+                console.error('Login endpoint returned non-JSON response:\n', text);
+                return { success: false, message: 'Login failed: server returned an error (see console).' };
+            }
 
             if (data.success) {
                 // Determine redirect based on role

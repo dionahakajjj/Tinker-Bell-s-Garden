@@ -75,6 +75,11 @@ header nav li {
   list-style: none;
 }
 
+header nav a.active {
+  color: var(--green-dark);
+  font-weight: 700;
+}
+
 .logo h1 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
