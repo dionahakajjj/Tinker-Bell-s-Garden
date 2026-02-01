@@ -1,150 +1,179 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard | Tinker Bell's Garden</title>
-    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../index.css" />
     <style>
-        .admin-container {
-            display: flex;
-            min-height: calc(100vh - 80px);
-            /* Adjust for header/footer */
-        }
+      .admin-container {
+        display: flex;
+        min-height: calc(100vh - 80px);
+        /* Adjust for header/footer */
+      }
 
-        .sidebar {
-            width: 250px;
-            background-color: #f4f4f4;
-            padding: 2rem;
-            border-right: 1px solid #ddd;
-        }
+      .sidebar {
+        width: 250px;
+        background-color: #f4f4f4;
+        padding: 2rem;
+        border-right: 1px solid #ddd;
+      }
 
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+      }
 
-        .sidebar li {
-            margin-bottom: 1rem;
-        }
+      .sidebar li {
+        margin-bottom: 1rem;
+      }
 
-        .sidebar a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-            display: block;
-            padding: 0.5rem;
-            border-radius: 4px;
-        }
+      .sidebar a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        display: block;
+        padding: 0.5rem;
+        border-radius: 4px;
+      }
 
-        .sidebar a.active {
-            background-color: #1f7a5a;
-            /* Use primary color */
-            color: white;
-        }
+      .sidebar a.active {
+        background-color: #1f7a5a;
+        /* Use primary color */
+        color: white;
+      }
 
-        .main-content {
-            flex: 1;
-            padding: 2rem;
-        }
+      .main-content {
+        flex: 1;
+        padding: 2rem;
+      }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
 
-        th,
-        td {
-            text-align: left;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-        }
+      th,
+      td {
+        text-align: left;
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+      }
 
-        th {
-            background-color: #f9f9f9;
-        }
+      th {
+        background-color: #f9f9f9;
+      }
 
-        .actions button {
-            background-color: #c44d1c;
-            /* Use secondary/danger color */
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+      .actions button {
+        background-color: #c44d1c;
+        /* Use secondary/danger color */
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-        .actions button:hover {
-            opacity: 0.9;
-        }
+      .actions button:hover {
+        opacity: 0.9;
+      }
 
-        .role-badge {
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
+      .role-badge {
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: bold;
+      }
 
-        .role-admin {
-            background-color: #e3f2fd;
-            color: #1565c0;
-        }
+      .role-admin {
+        background-color: #e3f2fd;
+        color: #1565c0;
+      }
 
-        .role-user {
-            background-color: #fce4ec;
-            color: #c2185b;
-        }
+      .role-user {
+        background-color: #fce4ec;
+        color: #c2185b;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <div class="logo">
-            <h1>Tinker Bell's Garden</h1>
-        </div>
-        <nav>
-            <li><a href="../">Home</a></li>
-            <li><a href="#" onclick="Auth.logout(); return false;" style="color: #c44d1c;">Logout</a></li>
-        </nav>
+      <div class="logo">
+        <a href="/" class="logo-link" aria-label="Tinker Bell's Garden home">
+          <svg
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 2C9 5 4 7 4 11c0 3 3 6 8 9 5-3 8-6 8-9 0-4-5-6-8-9z"
+              fill="#2f9e77"
+            />
+          </svg>
+          <h1>Tinker Bell's Garden</h1>
+        </a>
+      </div>
+      <nav>
+        <li><a href="../">Home</a></li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              Auth.logout();
+              return false;
+            "
+            style="color: #c44d1c"
+            >Logout</a
+          >
+        </li>
+      </nav>
     </header>
 
     <div class="admin-container">
-        <aside class="sidebar">
-            <h3>Admin Panel</h3>
-            <ul>
-                <li><a href="#" class="active">Users</a></li>
-                <!-- Future: <li><a href="#">Settings</a></li> -->
-            </ul>
-        </aside>
-        <main class="main-content">
-            <h2>User Management</h2>
-            <div id="message-container"></div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Joined</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="user-table-body">
-                    <!-- Users will be populated here -->
-                </tbody>
-            </table>
-        </main>
+      <aside class="sidebar">
+        <h3>Admin Panel</h3>
+        <ul>
+          <li><a href="#" class="active">Users</a></li>
+          <!-- Future: <li><a href="#">Settings</a></li> -->
+        </ul>
+      </aside>
+      <main class="main-content">
+        <h2>User Management</h2>
+        <div id="message-container"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Joined</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="user-table-body">
+            <!-- Users will be populated here -->
+          </tbody>
+        </table>
+      </main>
     </div>
 
-    <footer>
-        <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>&copy; 2026 Tinker Bell's Garden — Diona Hakaj & Eliza Halili</p>
+        <nav class="footer-nav">
+          <a href="/flowers/">Flowers</a> · <a href="/aboutUs/">About</a> ·
+          <a href="/contact/">Contact</a>
+        </nav>
+      </div>
     </footer>
 
     <script src="../assets/js/auth.js"></script>
     <script src="../assets/js/admin.js"></script>
-</body>
-
+  </body>
 </html>

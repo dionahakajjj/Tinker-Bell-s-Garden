@@ -11,7 +11,12 @@
 <body>
   <header>
     <div class="logo">
-      <h1>Tinker Belgit l's Garden</h1>
+      <a href="/" class="logo-link" aria-label="Tinker Bell's Garden home">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2C9 5 4 7 4 11c0 3 3 6 8 9 5-3 8-6 8-9 0-4-5-6-8-9z" fill="#2f9e77" />
+        </svg>
+        <h1>Tinker Bell's Garden</h1>
+      </a>
     </div>
     <nav>
       <li><a href="/"><strong>Home</strong></a></li>
@@ -112,8 +117,15 @@
     </div>
   </div>
 
-  <footer>
-    <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; 2026 Tinker Bell's Garden — Diona Hakaj & Eliza Halili</p>
+      <nav class="footer-nav">
+        <a href="/flowers/">Flowers</a> ·
+        <a href="/aboutUs/">About</a> ·
+        <a href="/contact/">Contact</a>
+      </nav>
+    </div>
   </footer>
 
   <script src="./index.js"></script>
