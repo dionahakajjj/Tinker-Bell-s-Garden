@@ -4,31 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tinker Bell's Garden | Sign Up</title>
-    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="index.css" />
   </head>
 
   <body>
     <header>
       <div class="logo">
-        <h1>Tinker Bell's Garden</h1>
+        <a href="/" class="logo-link" aria-label="Tinker Bell's Garden home">
+          <svg
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 2C9 5 4 7 4 11c0 3 3 6 8 9 5-3 8-6 8-9 0-4-5-6-8-9z"
+              fill="#2f9e77"
+            />
+          </svg>
+          <h1>Tinker Bell's Garden</h1>
+        </a>
       </div>
       <nav>
-        <li><a href="/">Home</a></li>
+        <li>
+          <a href="/"><strong>Home</strong></a>
+        </li>
         <li><a href="/flowers/">Flowers</a></li>
         <li><a href="/aboutUs/">About</a></li>
         <li><a href="/contact/">Contact</a></li>
-        <li><a href="/login/">Login</a></li>
-        <li>
-          <a href="/signUp/"><strong>Register</strong></a>
-        </li>
+        <li><a href="/logIn/">Login</a></li>
+        <li><a href="/signUp/">Register</a></li>
       </nav>
     </header>
     <main>
       <section class="auth-hero register auth-centered">
         <div class="auth-card">
+          <span class="badge">Join us</span>
           <h1>Join Tinker Bell's Garden</h1>
-          <p style="color: var(--muted); margin-bottom: 32px">
-            Create an account to track orders and save favorites.
+          <p style="color: var(--muted); margin-bottom: 24px">
+            Create an account to track orders, save favorites and get green
+            offers.
           </p>
           <form id="registerForm" novalidate>
             <div class="input-row">
@@ -96,15 +113,34 @@
             </button>
             <p style="margin-top: 24px">
               Already have an account?
-              <a class="link-ghost" href="/login/">Log in</a>
+              <a class="link-ghost" href="/logIn/">Log in</a>
             </p>
           </form>
         </div>
       </section>
     </main>
-    <footer>
-      <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>&copy; 2026 Tinker Bell's Garden — Diona Hakaj & Eliza Halili</p>
+        <nav class="footer-nav">
+          <a href="/flowers/">Flowers</a> · <a href="/aboutUs/">About</a> ·
+          <a href="/contact/">Contact</a>
+        </nav>
+      </div>
     </footer>
-    <script src="/index.js"></script>
+    <script src="../index.js"></script>
+    <script src="index.js"></script>
+    <script>
+      // mark active nav link
+      (function () {
+        const path = location.pathname.replace(/\/$/, "") || "/";
+        document.querySelectorAll("header nav a").forEach((a) => {
+          try {
+            const href = new URL(a.href).pathname.replace(/\/$/, "") || "/";
+            if (href === path) a.classList.add("active");
+          } catch (e) {}
+        });
+      })();
+    </script>
   </body>
 </html>

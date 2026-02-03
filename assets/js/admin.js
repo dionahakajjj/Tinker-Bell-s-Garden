@@ -1,315 +1,454 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Verify access immediately
-    const user = await Auth.getCurrentUser();
-    if (!user || user.role !== 'admin') {
-        window.location.href = '../logIn/';
-        return;
-    }
+let productsCache = [];
+let newsCache = [];
+let adminNavLinks = [];
 
-    // 2. Load Users
-    loadUsers();
-    
-    // Set up section navigation
-    setupSectionNavigation();
+document.addEventListener("DOMContentLoaded", async () => {
+  const user = await Auth.getCurrentUser();
+  if (!user || user.role !== "admin") {
+    window.location.href = "../logIn/";
+    return;
+  }
+
+  setupAdminNav();
+  setupProductForm();
+  setupNewsForm();
+  setupTableActions();
+
+  loadUsers();
+  loadProducts();
+  loadNews();
 });
 
-async function loadUsers() {
-    try {
-        const response = await fetch('../api/admin/get_users.php');
-        const data = await response.json();
+function setupAdminNav() {
+  adminNavLinks = Array.from(
+    document.querySelectorAll(".admin-nav a[data-section]")
+  );
 
-        if (data.success) {
-            renderUsers(data.users);
-        } else {
-            console.error('Failed to load users:', data.message);
-        }
-    } catch (error) {
-        console.error('Error loading users:', error);
+  adminNavLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const section = link.dataset.section;
+      if (section) showSection(section);
+    });
+  });
+
+  showSection("users");
+}
+
+function showSection(sectionKey) {
+  const sections = document.querySelectorAll(".admin-section");
+  sections.forEach((section) => {
+    section.style.display =
+      section.id === `section-${sectionKey}` ? "" : "none";
+  });
+
+  adminNavLinks.forEach((link) => {
+    link.classList.toggle("active", link.dataset.section === sectionKey);
+  });
+}
+
+/* ===============================
+   USERS
+   =============================== */
+async function loadUsers() {
+  try {
+    const response = await fetch("/api/admin/get_users.php", {
+      credentials: "include",
+    });
+    const data = await response.json();
+
+    if (data.success) {
+      renderUsers(data.users);
+    } else {
+      console.error("Failed to load users:", data.message);
     }
+  } catch (error) {
+    console.error("Error loading users:", error);
+  }
 }
 
 function renderUsers(users) {
-    const tbody = document.getElementById('user-table-body');
-    tbody.innerHTML = '';
+  const tbody = document.getElementById("user-table-body");
+  if (!tbody) return;
+  tbody.innerHTML = "";
 
-    users.forEach(user => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>#${user.id}</td>
-            <td>${escapeHtml(user.name)}</td>
-            <td>${escapeHtml(user.email)}</td>
-            <td><span class="role-badge role-${user.role}">${user.role}</span></td>
-            <td>${new Date(user.created_at).toLocaleDateString()}</td>
-            <td class="actions">
-                ${user.role !== 'admin' ?
-                `<button onclick="deleteUser(${user.id}, '${escapeHtml(user.name)}')">Delete</button>` :
-                '<span style="color:#999">N/A</span>'}
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
+  users.forEach((user) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>#${user.id}</td>
+      <td>${escapeHtml(user.name)}</td>
+      <td>${escapeHtml(user.email)}</td>
+      <td><span class="role-badge role-${user.role}">${user.role}</span></td>
+      <td>${new Date(user.created_at).toLocaleDateString()}</td>
+      <td class="actions">
+        ${
+          user.role !== "admin"
+            ? `<button onclick="deleteUser(${user.id}, '${escapeHtml(
+                user.name
+              )}')">Delete</button>`
+            : '<span style="color:#999">N/A</span>'
+        }
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
 }
 
 async function deleteUser(id, name) {
-    if (!confirm(`Are you sure you want to delete user "${name}"? This action cannot be undone.`)) {
-        return;
+  if (
+    !confirm(
+      `Are you sure you want to delete user "${name}"? This action cannot be undone.`
+    )
+  ) {
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/admin/delete_user.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("User deleted successfully");
+      loadUsers();
+    } else {
+      alert("Error: " + data.message);
     }
+  } catch (error) {
+    alert("Network error: " + error.message);
+  }
+}
+
+/* ===============================
+   PRODUCTS
+   =============================== */
+function setupProductForm() {
+  const form = document.getElementById("productForm");
+  const cancelBtn = document.getElementById("productCancel");
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const noteEl = document.getElementById("productFormNote");
+    setFormNote(noteEl, "", "");
+
+    const formData = new FormData(form);
+    const id = (formData.get("id") || "").toString().trim();
+    const endpoint = id ? "/api/products/update.php" : "/api/products/create.php";
+    if (!id) formData.delete("id");
 
     try {
-        const response = await fetch('../api/admin/delete_user.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id })
-        });
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+      const data = await response.json();
 
-        const data = await response.json();
-
-        if (data.success) {
-            alert('User deleted successfully');
-            loadUsers(); // Reload list
-        } else {
-            alert('Error: ' + data.message);
-        }
+      if (data.success) {
+        setFormNote(
+          noteEl,
+          id ? "Product updated successfully." : "Product created successfully.",
+          "success"
+        );
+        resetProductForm();
+        loadProducts();
+      } else {
+        setFormNote(noteEl, data.error || "Failed to save product.", "error");
+      }
     } catch (error) {
-        alert('Network error: ' + error.message);
+      setFormNote(noteEl, "Network error while saving product.", "error");
+      console.error("Product save failed:", error);
     }
-}
+  });
 
-function escapeHtml(text) {
-    if (!text) return '';
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-// Section Navigation
-function setupSectionNavigation() {
-    const links = document.querySelectorAll('.sidebar a[data-section]');
-    links.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const section = link.getAttribute('data-section');
-            showSection(section);
-        });
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", () => {
+      resetProductForm();
     });
+  }
 }
 
-function showSection(sectionName) {
-    // Hide all sections
-    document.querySelectorAll('.admin-section').forEach(section => {
-        section.style.display = 'none';
-    });
-    
-    // Show selected section
-    const targetSection = document.getElementById(`${sectionName}-section`);
-    if (targetSection) {
-        targetSection.style.display = 'block';
-    }
-    
-    // Update active link
-    document.querySelectorAll('.sidebar a').forEach(link => {
-        link.classList.remove('active');
-    });
-    const activeLink = document.querySelector(`.sidebar a[data-section="${sectionName}"]`);
-    if (activeLink) {
-        activeLink.classList.add('active');
-    }
-    
-    // Load data for the section
-    switch(sectionName) {
-        case 'users':
-            loadUsers();
-            break;
-        case 'contacts':
-            loadContactSubmissions();
-            break;
-        case 'news':
-            loadNews();
-            break;
-        case 'products':
-            loadProducts();
-            break;
-    }
-}
-
-// Contact Submissions
-async function loadContactSubmissions() {
-    try {
-        const response = await fetch('../api/admin/get_contact_submissions.php');
-        const data = await response.json();
-
-        if (data.success) {
-            renderContactSubmissions(data.submissions);
-        } else {
-            console.error('Failed to load contact submissions:', data.message);
-        }
-    } catch (error) {
-        console.error('Error loading contact submissions:', error);
-    }
-}
-
-function renderContactSubmissions(submissions) {
-    const tbody = document.getElementById('contact-table-body');
-    tbody.innerHTML = '';
-
-    if (submissions.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem;">No contact submissions yet</td></tr>';
-        return;
-    }
-
-    submissions.forEach(submission => {
-        const tr = document.createElement('tr');
-        const messagePreview = submission.message.length > 100 
-            ? escapeHtml(submission.message.substring(0, 100)) + '...' 
-            : escapeHtml(submission.message);
-        tr.innerHTML = `
-            <td>#${submission.id}</td>
-            <td>${escapeHtml(submission.name)}</td>
-            <td>${escapeHtml(submission.email)}</td>
-            <td>${messagePreview}</td>
-            <td>${new Date(submission.created_at).toLocaleString()}</td>
-            <td><span class="read-badge read-${submission.read ? 'true' : 'false'}">${submission.read ? 'Read' : 'Unread'}</span></td>
-            <td class="actions">
-                <button onclick="toggleContactRead(${submission.id}, ${submission.read ? 0 : 1})">
-                    ${submission.read ? 'Mark Unread' : 'Mark Read'}
-                </button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-async function toggleContactRead(id, read) {
-    try {
-        const response = await fetch('../api/admin/mark_contact_read.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, read })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            loadContactSubmissions();
-        } else {
-            alert('Error: ' + data.message);
-        }
-    } catch (error) {
-        alert('Network error: ' + error.message);
-    }
-}
-
-// News Management
-async function loadNews() {
-    try {
-        const response = await fetch('../api/news/get_all.php');
-        const data = await response.json();
-
-        if (data.success) {
-            renderNews(data.news);
-        } else {
-            console.error('Failed to load news:', data.message);
-        }
-    } catch (error) {
-        console.error('Error loading news:', error);
-    }
-}
-
-function renderNews(news) {
-    const tbody = document.getElementById('news-table-body');
-    tbody.innerHTML = '';
-
-    if (news.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 2rem;">No news articles yet</td></tr>';
-        return;
-    }
-
-    news.forEach(item => {
-        const tr = document.createElement('tr');
-        const contentPreview = item.content.length > 50 
-            ? escapeHtml(item.content.substring(0, 50)) + '...' 
-            : escapeHtml(item.content);
-        tr.innerHTML = `
-            <td>#${item.id}</td>
-            <td>${escapeHtml(item.title)}</td>
-            <td>${contentPreview}</td>
-            <td>${item.image ? `<img src="../${item.image}" style="max-width: 50px; height: auto;" />` : 'No image'}</td>
-            <td>${item.pdf_file ? `<a href="../${item.pdf_file}" target="_blank">View PDF</a>` : 'No PDF'}</td>
-            <td>${escapeHtml(item.created_by_name || 'Unknown')} (${escapeHtml(item.created_by_email || '')})</td>
-            <td>${item.updated_by_name ? escapeHtml(item.updated_by_name) + ' (' + escapeHtml(item.updated_by_email) + ')' : 'Never'}</td>
-            <td>${new Date(item.created_at).toLocaleDateString()}</td>
-            <td class="actions">
-                <button onclick="editNews(${item.id})">Edit</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-// Products Management
 async function loadProducts() {
-    try {
-        const response = await fetch('../api/products/get_all.php');
-        const data = await response.json();
+  try {
+    const response = await fetch("/api/products/get_all.php", {
+      credentials: "include",
+    });
+    const data = await response.json();
 
-        if (data.success) {
-            renderProducts(data.products);
-        } else {
-            console.error('Failed to load products:', data.message);
-        }
-    } catch (error) {
-        console.error('Error loading products:', error);
+    if (data.success) {
+      renderProducts(data.products || []);
+    } else {
+      console.error("Failed to load products:", data.message);
     }
+  } catch (error) {
+    console.error("Error loading products:", error);
+  }
 }
 
 function renderProducts(products) {
-    const tbody = document.getElementById('product-table-body');
-    tbody.innerHTML = '';
+  productsCache = Array.isArray(products) ? products : [];
+  const tbody = document.getElementById("product-table-body");
+  if (!tbody) return;
+  tbody.innerHTML = "";
 
-    if (products.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 2rem;">No products yet</td></tr>';
-        return;
+  productsCache.forEach((product) => {
+    const tr = document.createElement("tr");
+    const desc = truncate(product.description || "", 80);
+    const priceNum = Number(product.price);
+    const price = Number.isFinite(priceNum) ? priceNum.toFixed(2) : "";
+    const imageLink = product.image
+      ? `<a href="/${escapeHtml(product.image)}" target="_blank" rel="noopener">View</a>`
+      : "-";
+    const pdfLink = product.pdf_file
+      ? `<a href="/${escapeHtml(product.pdf_file)}" target="_blank" rel="noopener">View</a>`
+      : "-";
+    const updated = formatDate(product.updated_at || product.created_at);
+
+    tr.innerHTML = `
+      <td>#${product.id}</td>
+      <td>${escapeHtml(product.name || "")}</td>
+      <td>${escapeHtml(desc)}</td>
+      <td>${price}</td>
+      <td>${imageLink}</td>
+      <td>${pdfLink}</td>
+      <td>${updated}</td>
+      <td>
+        <button class="btn-edit" data-action="edit-product" data-id="${product.id}">
+          Edit
+        </button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function startProductEdit(product) {
+  const form = document.getElementById("productForm");
+  if (!form) return;
+
+  form.querySelector('[name="id"]').value = product.id || "";
+  form.querySelector('[name="name"]').value = product.name || "";
+  form.querySelector('[name="price"]').value =
+    product.price !== null && product.price !== undefined ? product.price : "";
+  form.querySelector('[name="description"]').value =
+    product.description || "";
+
+  const titleEl = document.getElementById("productFormTitle");
+  if (titleEl) titleEl.textContent = "Edit product";
+
+  const noteEl = document.getElementById("productFormNote");
+  setFormNote(noteEl, `Editing product #${product.id}`, "success");
+
+  showSection("products");
+}
+
+function resetProductForm() {
+  const form = document.getElementById("productForm");
+  if (!form) return;
+  form.reset();
+  form.querySelector('[name="id"]').value = "";
+
+  const titleEl = document.getElementById("productFormTitle");
+  if (titleEl) titleEl.textContent = "Create product";
+
+  const noteEl = document.getElementById("productFormNote");
+  setFormNote(noteEl, "", "");
+}
+
+/* ===============================
+   NEWS
+   =============================== */
+function setupNewsForm() {
+  const form = document.getElementById("newsForm");
+  const cancelBtn = document.getElementById("newsCancel");
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const noteEl = document.getElementById("newsFormNote");
+    setFormNote(noteEl, "", "");
+
+    const formData = new FormData(form);
+    const id = (formData.get("id") || "").toString().trim();
+    const endpoint = id ? "/api/news/update.php" : "/api/news/create.php";
+    if (!id) formData.delete("id");
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        setFormNote(
+          noteEl,
+          id ? "News updated successfully." : "News created successfully.",
+          "success"
+        );
+        resetNewsForm();
+        loadNews();
+      } else {
+        setFormNote(noteEl, data.error || "Failed to save news.", "error");
+      }
+    } catch (error) {
+      setFormNote(noteEl, "Network error while saving news.", "error");
+      console.error("News save failed:", error);
     }
+  });
 
-    products.forEach(product => {
-        const tr = document.createElement('tr');
-        const descPreview = product.description.length > 50 
-            ? escapeHtml(product.description.substring(0, 50)) + '...' 
-            : escapeHtml(product.description);
-        tr.innerHTML = `
-            <td>#${product.id}</td>
-            <td>${escapeHtml(product.name)}</td>
-            <td>${descPreview}</td>
-            <td>${product.price ? '€' + parseFloat(product.price).toFixed(2) : 'N/A'}</td>
-            <td>${product.image ? `<img src="../${product.image}" style="max-width: 50px; height: auto;" />` : 'No image'}</td>
-            <td>${product.pdf_file ? `<a href="../${product.pdf_file}" target="_blank">View PDF</a>` : 'No PDF'}</td>
-            <td>${escapeHtml(product.created_by_name || 'Unknown')} (${escapeHtml(product.created_by_email || '')})</td>
-            <td>${product.updated_by_name ? escapeHtml(product.updated_by_name) + ' (' + escapeHtml(product.updated_by_email) + ')' : 'Never'}</td>
-            <td>${new Date(product.created_at).toLocaleDateString()}</td>
-            <td class="actions">
-                <button onclick="editProduct(${product.id})">Edit</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", () => {
+      resetNewsForm();
     });
+  }
 }
 
-// Form modals (placeholder functions - can be expanded)
-function showNewsForm() {
-    alert('News creation form - to be implemented with file upload support');
+async function loadNews() {
+  try {
+    const response = await fetch("/api/news/get_all.php", {
+      credentials: "include",
+    });
+    const data = await response.json();
+
+    if (data.success) {
+      renderNews(data.news || []);
+    } else {
+      console.error("Failed to load news:", data.message);
+    }
+  } catch (error) {
+    console.error("Error loading news:", error);
+  }
 }
 
-function showProductForm() {
-    alert('Product creation form - to be implemented with file upload support');
+function renderNews(items) {
+  newsCache = Array.isArray(items) ? items : [];
+  const tbody = document.getElementById("news-table-body");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+
+  newsCache.forEach((item) => {
+    const tr = document.createElement("tr");
+    const content = truncate(item.content || "", 90);
+    const imageLink = item.image
+      ? `<a href="/${escapeHtml(item.image)}" target="_blank" rel="noopener">View</a>`
+      : "-";
+    const pdfLink = item.pdf_file
+      ? `<a href="/${escapeHtml(item.pdf_file)}" target="_blank" rel="noopener">View</a>`
+      : "-";
+    const updated = formatDate(item.updated_at || item.created_at);
+
+    tr.innerHTML = `
+      <td>#${item.id}</td>
+      <td>${escapeHtml(item.title || "")}</td>
+      <td>${escapeHtml(content)}</td>
+      <td>${imageLink}</td>
+      <td>${pdfLink}</td>
+      <td>${updated}</td>
+      <td>
+        <button class="btn-edit" data-action="edit-news" data-id="${item.id}">
+          Edit
+        </button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
 }
 
-function editNews(id) {
-    alert('Edit news #' + id + ' - to be implemented');
+function startNewsEdit(item) {
+  const form = document.getElementById("newsForm");
+  if (!form) return;
+
+  form.querySelector('[name="id"]').value = item.id || "";
+  form.querySelector('[name="title"]').value = item.title || "";
+  form.querySelector('[name="content"]').value = item.content || "";
+
+  const titleEl = document.getElementById("newsFormTitle");
+  if (titleEl) titleEl.textContent = "Edit news";
+
+  const noteEl = document.getElementById("newsFormNote");
+  setFormNote(noteEl, `Editing news #${item.id}`, "success");
+
+  showSection("news");
 }
 
-function editProduct(id) {
-    alert('Edit product #' + id + ' - to be implemented');
+function resetNewsForm() {
+  const form = document.getElementById("newsForm");
+  if (!form) return;
+  form.reset();
+  form.querySelector('[name="id"]').value = "";
+
+  const titleEl = document.getElementById("newsFormTitle");
+  if (titleEl) titleEl.textContent = "Create news";
+
+  const noteEl = document.getElementById("newsFormNote");
+  setFormNote(noteEl, "", "");
+}
+
+/* ===============================
+   TABLE ACTIONS
+   =============================== */
+function setupTableActions() {
+  const productsTable = document.getElementById("productsTable");
+  if (productsTable) {
+    productsTable.addEventListener("click", (e) => {
+      const btn = e.target.closest('[data-action="edit-product"]');
+      if (!btn) return;
+      const id = Number(btn.dataset.id);
+      const product = productsCache.find((item) => Number(item.id) === id);
+      if (product) startProductEdit(product);
+    });
+  }
+
+  const newsTable = document.getElementById("newsTable");
+  if (newsTable) {
+    newsTable.addEventListener("click", (e) => {
+      const btn = e.target.closest('[data-action="edit-news"]');
+      if (!btn) return;
+      const id = Number(btn.dataset.id);
+      const item = newsCache.find((entry) => Number(entry.id) === id);
+      if (item) startNewsEdit(item);
+    });
+  }
+}
+
+/* ===============================
+   HELPERS
+   =============================== */
+function truncate(text, max) {
+  if (!text) return "";
+  if (text.length <= max) return text;
+  return text.slice(0, max - 3) + "...";
+}
+
+function formatDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString();
+}
+
+function setFormNote(el, message, type) {
+  if (!el) return;
+  el.textContent = message || "";
+  el.classList.remove("success", "error");
+  if (type) el.classList.add(type);
+}
+
+function escapeHtml(text) {
+  if (!text) return "";
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }

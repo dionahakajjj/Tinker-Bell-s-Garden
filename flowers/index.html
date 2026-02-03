@@ -1,147 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tinker Bell's Garden | Flowers</title>
+    <link rel="stylesheet" href="../index.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tinker Bell's Garden | Flowers</title>
-  <link rel="stylesheet" href="/index.css" />
-</head>
+  <body>
+    <header>
+      <div class="logo">
+        <a
+          href="../index.html"
+          class="logo-link"
+          aria-label="Tinker Bell's Garden home"
+        >
+          <svg
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 2C9 5 4 7 4 11c0 3 3 6 8 9 5-3 8-6 8-9 0-4-5-6-8-9z"
+              fill="#2f9e77"
+            />
+          </svg>
+          <h1>Tinker Bell's Garden</h1>
+        </a>
+      </div>
+      <nav>
+        <li><a href="../index.html">Home</a></li>
+        <li>
+          <a href="index.html"><strong>Flowers</strong></a>
+        </li>
+        <li><a href="../aboutUs/index.html">About</a></li>
+        <li><a href="../contact/index.html">Contact</a></li>
+        <li><a href="../logIn/index.html">Login</a></li>
+        <li><a href="../register/index.html">Register</a></li>
+      </nav>
+    </header>
+    <main>
+      <div class="section-title">
+        <h1>Products</h1>
+        <p>Explore our wide variety of fresh, hand-picked flowers.</p>
+      </div>
+      <section class="grid grid-3" id="staticProductsGrid">
+        <!-- Roses -->
+        <article class="card">
+          <img
+            src="../assets/js/images/Elegant Roses.jpg"
+            alt="Roses"
+            loading="lazy"
+          />
+          <h3>Elegant Roses</h3>
+          <p>Classic white roses for timeless elegance and beauty.</p>
+          <span class="price">EUR 45</span>
+          <button
+            class="pill secondary show-details"
+            data-title="Elegant Roses"
+            data-desc="Our freshly cut white roses represent purity and innocence. Perfect for weddings, anniversaries, or just to say 'I care'. Sourced from local growers."
+          >
+            See details
+          </button>
+        </article>
 
-<body>
-  <header>
-    <div class="logo">
-      <h1>Tinker Bell's Garden</h1>
+        <!-- Tulips -->
+        <article class="card">
+          <img
+            src="../assets/js/images/Sunset Tulips.jpg"
+            alt="Tulips"
+            loading="lazy"
+          />
+          <h3>Sunset Tulips</h3>
+          <p>Tangerine and blush tulips to brighten up any room.</p>
+          <span class="price">EUR 34</span>
+          <button
+            class="pill secondary show-details"
+            data-title="Sunset Tulips"
+            data-desc="These vibrant tulips bring the warmth of a sunset into your home. Available in various colors, they are the perfect harbinger of spring."
+          >
+            See details
+          </button>
+        </article>
+
+        <!-- Lilies -->
+        <article class="card">
+          <img
+            src="../assets/js/images/White Lilies.jpg"
+            alt="Lilies"
+            loading="lazy"
+          />
+          <h3>White Lilies</h3>
+          <p>Fragrant and majestic lilies, a symbol of rebirth.</p>
+          <span class="price">EUR 40</span>
+          <button
+            class="pill secondary show-details"
+            data-title="White Lilies"
+            data-desc="Known for their intoxicating fragrance and striking trumpet shape, our white lilies make a sophisticated statement in any arrangement."
+          >
+            See details
+          </button>
+        </article>
+
+        <!-- Orchids -->
+        <article class="card">
+          <img
+            src="../assets/js/images/Orchid Grace.jpg"
+            alt="Orchid"
+            loading="lazy"
+          />
+          <h3>Orchid Grace</h3>
+          <p>Exotic phalaenopsis orchid in a ceramic pot.</p>
+          <span class="price">EUR 65</span>
+          <button
+            class="pill secondary show-details"
+            data-title="Orchid Grace"
+            data-desc="A symbol of luxury and strength, this potted orchid is long-lasting and easy to care for. Needs indirect light and minimal watering."
+          >
+            See details
+          </button>
+        </article>
+
+        <!-- Chamomiles -->
+        <article class="card">
+          <img
+            src="../assets/js/images/Wild Chamomiles.jpg"
+            alt="Chamomiles"
+            loading="lazy"
+          />
+          <h3>Wild Chamomiles</h3>
+          <p>Delicate and soothing, perfect for a rustic look.</p>
+          <span class="price">EUR 28</span>
+          <button
+            class="pill secondary show-details"
+            data-title="Wild Chamomiles"
+            data-desc="These charming little flowers resemble daisies and add a playful, wildflower vibe. They are also known for their calming properties."
+          >
+            See details
+          </button>
+        </article>
+
+        <!-- Mixed (Bonus) -->
+        <article class="card">
+          <img
+            src="../assets/js/images/Spring Mix.jpg"
+            alt="Pastel Mix"
+            loading="lazy"
+          />
+          <h3>Spring Mix</h3>
+          <p>A delightful mix of seasonal spring favorites.</p>
+          <span class="price">EUR 50</span>
+          <button
+            class="pill secondary show-details"
+            data-title="Spring Mix"
+            data-desc="Can't decide? Our florists will curate a beautiful selection of the freshest blooms available today, featuring roses, lilies, and more."
+          >
+            See details
+          </button>
+        </article>
+
+        <!-- Peonies (New) -->
+        <article class="card">
+          <img
+            src="../assets/js/images/peonies flowers.jpg"
+            alt="Peonies"
+            loading="lazy"
+          />
+          <h3>Peony Dreams</h3>
+          <p>Full, lush peonies in romantic shades of pink.</p>
+          <span class="price">EUR 55</span>
+          <button
+            class="pill secondary show-details"
+            data-title="Peony Dreams"
+            data-desc="These seasonal beauties are known for their lush, full blooms and sweet fragrance. A romantic favorite available for a limited time only."
+          >
+            See details
+          </button>
+        </article>
+
+        <!-- Emerald (New) -->
+        <article class="card">
+          <img
+            src="../assets/js/images/Emerald Bouquet.jpg"
+            alt="Bouquet"
+            loading="lazy"
+          />
+          <h3>Emerald Bouquet</h3>
+          <p>White roses, eucalyptus, and brushed gold accents.</p>
+          <span class="price">EUR 45</span>
+          <button
+            class="pill secondary show-details"
+            data-title="Emerald Bouquet"
+            data-desc="A sophisticated arrangement of premium white roses and eucalyptus foliage, accented with gold details."
+          >
+            See details
+          </button>
+        </article>
+
+        <!-- Sunrise (New) -->
+        <article class="card">
+          <img
+            src="../assets/js/images/Sunrise Pastels.jpg"
+            alt="Bouquet"
+            loading="lazy"
+          />
+          <h3>Sunrise Pastels</h3>
+          <p>Ranunculus, peach roses, blush dahlias, airy greenery.</p>
+          <span class="price">EUR 52</span>
+          <button
+            class="pill secondary show-details"
+            data-title="Sunrise Pastels"
+            data-desc="A dreamy mix of soft pastels featuring ranunculus and roses. Guaranteed to brighten anyone's day."
+          >
+            See details
+          </button>
+        </article>
+      </section>
+
+      <div class="section-title"></div>
+      <section class="grid grid-3" id="dynamicProductsGrid"></section>
+    </main>
+
+    <!-- Modal -->
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+      </div>
     </div>
-    <nav>
-      <li><a href="/">Home</a></li>
-      <li><a href="/flowers/"><strong>Flowers</strong></a></li>
-      <li><a href="/aboutUs/">About</a></li>
-      <li><a href="/contact/">Contact</a></li>
-      <li><a href="/login/">Login</a></li>
-      <li><a href="/signUp/">Register</a></li>
-    </nav>
-  </header>
-  <main>
-    <div class="section-title">
-      <h1>Products</h1>
-      <p>Explore our wide variety of fresh, hand-picked flowers.</p>
-    </div>
-    <section class="grid grid-3">
-      <!-- Roses -->
-      <article class="card">
-        <img src="/assets/js/images/Elegant Roses.jpg" alt="Roses" loading="lazy" />
-        <h3>Elegant Roses</h3>
-        <p>Classic white roses for timeless elegance and beauty.</p>
-        <span class="price">€45</span>
-        <button class="pill secondary show-details" data-title="Elegant Roses"
-          data-desc="Our freshly cut white roses represent purity and innocence. Perfect for weddings, anniversaries, or just to say 'I care'. Sourced from local growers.">See
-          details</button>
-      </article>
 
-      <!-- Tulips -->
-      <article class="card">
-        <img src="/assets/js/images/Sunset Tulips.jpg" alt="Tulips" loading="lazy" />
-        <h3>Sunset Tulips</h3>
-        <p>Tangerine and blush tulips to brighten up any room.</p>
-        <span class="price">€34</span>
-        <button class="pill secondary show-details" data-title="Sunset Tulips"
-          data-desc="These vibrant tulips bring the warmth of a sunset into your home. Available in various colors, they are the perfect harbinger of spring.">See
-          details</button>
-      </article>
-
-      <!-- Lilies -->
-      <article class="card">
-        <img src="/assets/js/images/White Lilies.jpg" alt="Lilies" loading="lazy" />
-        <h3>White Lilies</h3>
-        <p>Fragrant and majestic lilies, a symbol of rebirth.</p>
-        <span class="price">€40</span>
-        <button class="pill secondary show-details" data-title="White Lilies"
-          data-desc="Known for their intoxicating fragrance and striking trumpet shape, our white lilies make a sophisticated statement in any arrangement.">See
-          details</button>
-      </article>
-
-      <!-- Orchids -->
-      <article class="card">
-        <img src="/assets/js/images/Orchid Grace.jpg" alt="Orchid" loading="lazy" />
-        <h3>Orchid Grace</h3>
-        <p>Exotic phalaenopsis orchid in a ceramic pot.</p>
-        <span class="price">€65</span>
-        <button class="pill secondary show-details" data-title="Orchid Grace"
-          data-desc="A symbol of luxury and strength, this potted orchid is long-lasting and easy to care for. Needs indirect light and minimal watering.">See
-          details</button>
-      </article>
-
-      <!-- Chamomiles -->
-      <article class="card">
-        <img src="/assets/js/images/Wild Chamomiles.jpg" alt="Chamomiles" loading="lazy" />
-        <h3>Wild Chamomiles</h3>
-        <p>Delicate and soothing, perfect for a rustic look.</p>
-        <span class="price">€28</span>
-        <button class="pill secondary show-details" data-title="Wild Chamomiles"
-          data-desc="These charming little flowers resemble daisies and add a playful, wildflower vibe. They are also known for their calming properties.">See
-          details</button>
-      </article>
-
-      <!-- Mixed (Bonus) -->
-      <article class="card">
-        <img src="/assets/js/images/Spring Mix.jpg" alt="Pastel Mix" loading="lazy" />
-        <h3>Spring Mix</h3>
-        <p>A delightful mix of seasonal spring favorites.</p>
-        <span class="price">€50</span>
-        <button class="pill secondary show-details" data-title="Spring Mix"
-          data-desc="Can't decide? Our florists will curate a beautiful selection of the freshest blooms available today, featuring roses, lilies, and more.">See
-          details</button>
-      </article>
-
-      <!-- Peonies (New) -->
-      <article class="card">
-        <img src="/assets/js/images/peonies flowers.jpg" alt="Peonies" loading="lazy" />
-        <h3>Peony Dreams</h3>
-        <p>Full, lush peonies in romantic shades of pink.</p>
-        <span class="price">€55</span>
-        <button class="pill secondary show-details" data-title="Peony Dreams"
-          data-desc="These seasonal beauties are known for their lush, full blooms and sweet fragrance. A romantic favorite available for a limited time only.">See
-          details</button>
-      </article>
-
-      <!-- Emerald (New) -->
-      <article class="card">
-        <img src="/assets/js/images/Emerald Bouquet.jpg" alt="Bouquet" loading="lazy" />
-        <h3>Emerald Bouquet</h3>
-        <p>White roses, eucalyptus, and brushed gold accents.</p>
-        <span class="price">€45</span>
-        <button class="pill secondary show-details" data-title="Emerald Bouquet"
-          data-desc="A sophisticated arrangement of premium white roses and eucalyptus foliage, accented with gold details.">See
-          details</button>
-      </article>
-
-      <!-- Sunrise (New) -->
-      <article class="card">
-        <img src="/assets/js/images/Sunrise Pastels.jpg" alt="Bouquet" loading="lazy" />
-        <h3>Sunrise Pastels</h3>
-        <p>Ranunculus, peach roses, blush dahlias, airy greenery.</p>
-        <span class="price">€52</span>
-        <button class="pill secondary show-details" data-title="Sunrise Pastels"
-          data-desc="A dreamy mix of soft pastels featuring ranunculus and roses. Guaranteed to brighten anyone's day.">See
-          details</button>
-      </article>
-    </section>
-  </main>
-
-  <!-- Modal -->
-  <div id="productModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal">&times;</span>
-      <h2 id="modalTitle"></h2>
-      <p id="modalDesc"></p>
-    </div>
-  </div>
-
-  <footer>
-    <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
-  </footer>
-  <script src="/index.js"></script>
-</body>
-
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>&copy; 2026 Tinker Bell's Garden — Diona Hakaj & Eliza Halili</p>
+        <nav class="footer-nav">
+          <a href="index.html">Flowers</a> ·
+          <a href="../aboutUs/index.html">About</a> ·
+          <a href="../contact/index.html">Contact</a>
+        </nav>
+      </div>
+    </footer>
+    <script src="../index.js"></script>
+  </body>
 </html>

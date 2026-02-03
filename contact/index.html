@@ -5,22 +5,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tinker Bell's Garden | Contact</title>
-  <link rel="stylesheet" href="/index.css" />
-  <link rel="stylesheet" href="/contact/index.css" />
+  <link rel="stylesheet" href="../index.css" />
+  <link rel="stylesheet" href="index.css" />
 </head>
 
 <body>
   <header>
     <div class="logo">
-      <h1>Tinker Bell's Garden</h1>
+      <a href="../index.html" class="logo-link" aria-label="Tinker Bell's Garden home">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
+          <path d="M12 2C9 5 4 7 4 11c0 3 3 6 8 9 5-3 8-6 8-9 0-4-5-6-8-9z" fill="#2f9e77" />
+        </svg>
+        <h1>Tinker Bell's Garden</h1>
+      </a>
     </div>
     <nav>
-      <li><a href="/">Home</a></li>
-      <li><a href="/flowers/">Flowers</a></li>
-      <li><a href="/aboutUs/">About</a></li>
-      <li><a href="/contact/"><strong>Contact</strong></a></li>
-      <li><a href="/login/">Login</a></li>
-      <li><a href="/signUp/">Register</a></li>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../flowers/index.html">Flowers</a></li>
+      <li><a href="../aboutUs/index.html">About</a></li>
+      <li><a href="index.html"><strong>Contact</strong></a></li>
+      <li><a href="../logIn/index.html">Login</a></li>
+      <li><a href="../register/index.html">Register</a></li>
     </nav>
   </header>
   <main>
@@ -29,14 +35,19 @@
         <div class="hero-overlay">
           <span class="badge">Fresh · Local · Green</span>
           <h1>Get in touch</h1>
-          <p class="lead">Questions about an order, event florals, or wholesale? We’d love to hear from you.</p>
+          <p class="lead">
+            Questions about an order, event florals, or wholesale? We’d love
+            to hear from you.
+          </p>
         </div>
       </div>
 
       <div class="contact-card">
         <span class="chip">Contact</span>
         <h2>Drop us a message</h2>
-        <p class="muted">We reply within 24 hours. For urgent requests call us below.</p>
+        <p class="muted">
+          We reply within 24 hours. For urgent requests call us below.
+        </p>
 
         <form id="contactForm" novalidate>
           <div class="row">
@@ -79,13 +90,17 @@
       </div>
     </section>
   </main>
-
-  <footer>
-    <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; 2026 Tinker Bell's Garden — Diona Hakaj & Eliza Halili</p>
+      <nav class="footer-nav">
+        <a href="../flowers/index.html">Flowers</a> · <a href="../aboutUs/index.html">About</a> ·
+        <a href="index.html">Contact</a>
+      </nav>
+    </div>
   </footer>
-
-  <script src="/index.js"></script>
-  <script src="/contact/index.js"></script>
+  <script src="../index.js"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>

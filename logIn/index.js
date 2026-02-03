@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Send credentials to PHP login endpoint
         fetch("/backend-db/login.php", {
           method: "POST",
-          credentials: "same-origin",
+          credentials: "include",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({ email, password })
+          body: new URLSearchParams({ email, password }),
         })
           .then((res) => res.json())
           .then((data) => {
@@ -40,9 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .catch((err) => {
             console.error("Login request failed", err);
-            alert("Could not reach the server. Make sure PHP is running and login endpoint is available.");
+            alert(
+              "Could not reach the server. Make sure PHP is running and login endpoint is available."
+            );
           });
-
       }
     });
   }
@@ -62,5 +63,7 @@ function showError(input, message) {
 
 function clearErrors(form) {
   form.querySelectorAll(".error").forEach((err) => (err.textContent = ""));
-  form.querySelectorAll("[aria-invalid]").forEach((el) => el.removeAttribute("aria-invalid"));
+  form
+    .querySelectorAll("[aria-invalid]")
+    .forEach((el) => el.removeAttribute("aria-invalid"));
 }

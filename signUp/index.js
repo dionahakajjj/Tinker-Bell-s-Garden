@@ -40,27 +40,28 @@ document.addEventListener("DOMContentLoaded", () => {
         // POST to the PHP endpoint that lives in backend-db
         fetch("/backend-db/register.php", {
           method: "POST",
-          credentials: "same-origin",
+          credentials: "include",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({ name, email, password, confirm })
+          body: new URLSearchParams({ name, email, password, confirm }),
         })
           .then((res) => res.json())
           .then((data) => {
             if (data.error) {
               alert(data.error);
             } else {
-              alert("Signup successful ✅");
+              alert("Signup successful.");
               registerForm.reset();
               // redirect to login so the user can sign in
-              window.location.href = "/login/";
+              window.location.href = "/logIn/";
             }
           })
           .catch((err) => {
             console.error("Register request failed", err);
-            alert("Could not reach the server. Make sure PHP is running and the endpoint is available.");
+            alert(
+              "Could not reach the server. Make sure PHP is running and the endpoint is available."
+            );
           });
       }
-
     });
   }
 });
@@ -83,3 +84,4 @@ function clearErrors(form) {
     .querySelectorAll("[aria-invalid]")
     .forEach((el) => el.removeAttribute("aria-invalid"));
 }
+

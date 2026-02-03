@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "tinkerbell_garden"; // Make sure this matches your phpMyAdmin database name
+$dbname = "tinker_garden"; // Make sure this matches your phpMyAdmin database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -1,299 +1,341 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard | Tinker Bell's Garden</title>
-    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../index.css" />
     <style>
-        .admin-container {
-            display: flex;
-            min-height: calc(100vh - 80px);
-            /* Adjust for header/footer */
-        }
+      .admin-container {
+        display: flex;
+        min-height: calc(100vh - 80px);
+        /* Adjust for header/footer */
+      }
 
-        .sidebar {
-            width: 250px;
-            background-color: #f4f4f4;
-            padding: 2rem;
-            border-right: 1px solid #ddd;
-        }
+      .sidebar {
+        width: 250px;
+        background-color: #f4f4f4;
+        padding: 2rem;
+        border-right: 1px solid #ddd;
+      }
 
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+      }
 
-        .sidebar li {
-            margin-bottom: 1rem;
-        }
+      .sidebar li {
+        margin-bottom: 1rem;
+      }
 
-        .sidebar a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-            display: block;
-            padding: 0.5rem;
-            border-radius: 4px;
-        }
+      .sidebar a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        display: block;
+        padding: 0.5rem;
+        border-radius: 4px;
+      }
 
-        .sidebar a.active {
-            background-color: #1f7a5a;
-            /* Use primary color */
-            color: white;
-        }
+      .sidebar a.active {
+        background-color: #1f7a5a;
+        /* Use primary color */
+        color: white;
+      }
 
-        .main-content {
-            flex: 1;
-            padding: 2rem;
-        }
+      .main-content {
+        flex: 1;
+        padding: 2rem;
+      }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
 
-        th,
-        td {
-            text-align: left;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-        }
+      th,
+      td {
+        text-align: left;
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+      }
 
-        th {
-            background-color: #f9f9f9;
-        }
+      th {
+        background-color: #f9f9f9;
+      }
 
-        .actions button {
-            background-color: #c44d1c;
-            /* Use secondary/danger color */
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+      .actions button {
+        background-color: #c44d1c;
+        /* Use secondary/danger color */
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-        .actions button:hover {
-            opacity: 0.9;
-        }
+      .actions button:hover {
+        opacity: 0.9;
+      }
 
-        .role-badge {
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
+      .role-badge {
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: bold;
+      }
 
-        .role-admin {
-            background-color: #e3f2fd;
-            color: #1565c0;
-        }
+      .role-admin {
+        background-color: #e3f2fd;
+        color: #1565c0;
+      }
 
-        .role-user {
-            background-color: #fce4ec;
-            color: #c2185b;
-        }
+      .role-user {
+        background-color: #fce4ec;
+        color: #c2185b;
+      }
 
-        .admin-section {
-            display: block;
-        }
+      .admin-section {
+        margin-bottom: 2rem;
+      }
 
-        .read-badge {
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
+      .admin-form {
+        background: #fff;
+        border: 1px solid #eee;
+        padding: 1.25rem;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+      }
 
-        .read-true {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
+      .form-row {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
 
-        .read-false {
-            background-color: #fff3e0;
-            color: #e65100;
-        }
+      .form-row > * {
+        flex: 1;
+        min-width: 220px;
+      }
 
-        .form-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
+      .form-actions {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        margin-top: 1rem;
+      }
 
-        .form-modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 2rem;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
-            border-radius: 8px;
-        }
+      .form-note {
+        margin: 0.75rem 0 0;
+        font-size: 0.95rem;
+      }
 
-        .form-modal-content form {
-            display: grid;
-            gap: 1rem;
-        }
+      .form-note.success {
+        color: #1f7a5a;
+      }
 
-        .form-modal-content label {
-            font-weight: 600;
-        }
+      .form-note.error {
+        color: #c44d1c;
+      }
 
-        .form-modal-content input,
-        .form-modal-content textarea {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+      .btn-edit {
+        background: #1f7a5a;
+        color: #fff;
+        border: none;
+        padding: 0.45rem 0.8rem;
+        border-radius: 6px;
+        cursor: pointer;
+      }
 
-        .close-modal {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close-modal:hover {
-            color: #000;
-        }
+      .btn-edit:hover {
+        opacity: 0.9;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <div class="logo">
-            <h1>Tinker Bell's Garden</h1>
-        </div>
-        <nav>
-            <li><a href="../">Home</a></li>
-            <li><a href="#" onclick="Auth.logout(); return false;" style="color: #c44d1c;">Logout</a></li>
-        </nav>
+      <div class="logo">
+        <a href="/" class="logo-link" aria-label="Tinker Bell's Garden home">
+          <svg
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 2C9 5 4 7 4 11c0 3 3 6 8 9 5-3 8-6 8-9 0-4-5-6-8-9z"
+              fill="#2f9e77"
+            />
+          </svg>
+          <h1>Tinker Bell's Garden</h1>
+        </a>
+      </div>
+      <nav>
+        <li><a href="../">Home</a></li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              Auth.logout();
+              return false;
+            "
+            style="color: #c44d1c"
+            >Logout</a
+          >
+        </li>
+      </nav>
     </header>
 
     <div class="admin-container">
-        <aside class="sidebar">
-            <h3>Admin Panel</h3>
-            <ul>
-                <li><a href="#" onclick="showSection('users'); return false;" class="active" data-section="users">Users</a></li>
-                <li><a href="#" onclick="showSection('contacts'); return false;" data-section="contacts">Contact Messages</a></li>
-                <li><a href="#" onclick="showSection('news'); return false;" data-section="news">News</a></li>
-                <li><a href="#" onclick="showSection('products'); return false;" data-section="products">Products</a></li>
-            </ul>
-        </aside>
-        <main class="main-content">
-            <!-- Users Section -->
-            <div id="users-section" class="admin-section">
-                <h2>User Management</h2>
-                <div id="message-container"></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Joined</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="user-table-body">
-                        <!-- Users will be populated here -->
-                    </tbody>
-                </table>
-            </div>
+      <aside class="sidebar">
+        <h3>Admin Panel</h3>
+        <ul class="admin-nav">
+          <li><a href="#" class="active" data-section="users">Users</a></li>
+          <li><a href="#" data-section="products">Products</a></li>
+          <li><a href="#" data-section="news">News</a></li>
+        </ul>
+      </aside>
+      <main class="main-content">
+        <section id="section-users" class="admin-section">
+          <h2>User Management</h2>
+          <div id="message-container"></div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Joined</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="user-table-body">
+              <!-- Users will be populated here -->
+            </tbody>
+          </table>
+        </section>
 
-            <!-- Contact Submissions Section -->
-            <div id="contacts-section" class="admin-section" style="display: none;">
-                <h2>Contact Messages</h2>
-                <div id="contact-message-container"></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Message</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="contact-table-body">
-                        <!-- Contact submissions will be populated here -->
-                    </tbody>
-                </table>
+        <section id="section-products" class="admin-section" style="display: none;">
+          <h2>Product Management</h2>
+          <form id="productForm" class="admin-form" enctype="multipart/form-data">
+            <h3 id="productFormTitle">Create product</h3>
+            <input type="hidden" name="id" id="productId" />
+            <div class="form-row">
+              <label>
+                Name
+                <input type="text" name="name" required />
+              </label>
+              <label>
+                Price
+                <input type="number" name="price" step="0.01" required />
+              </label>
             </div>
+            <label>
+              Description
+              <textarea name="description" rows="4" required></textarea>
+            </label>
+            <div class="form-row">
+              <label>
+                Image
+                <input type="file" name="image" accept="image/*" />
+              </label>
+              <label>
+                PDF
+                <input type="file" name="pdf_file" accept="application/pdf" />
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="pill">Save product</button>
+              <button type="button" class="pill secondary" id="productCancel">Cancel edit</button>
+            </div>
+            <p id="productFormNote" class="form-note"></p>
+          </form>
 
-            <!-- News Section -->
-            <div id="news-section" class="admin-section" style="display: none;">
-                <h2>News Management</h2>
-                <button onclick="showNewsForm()" style="margin-bottom: 1rem; padding: 0.5rem 1rem; background: #1f7a5a; color: white; border: none; border-radius: 4px; cursor: pointer;">+ Add News</button>
-                <div id="news-message-container"></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Content</th>
-                            <th>Image</th>
-                            <th>PDF</th>
-                            <th>Created By</th>
-                            <th>Updated By</th>
-                            <th>Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="news-table-body">
-                        <!-- News will be populated here -->
-                    </tbody>
-                </table>
-            </div>
+          <table id="productsTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>PDF</th>
+                <th>Updated</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="product-table-body">
+              <!-- Products will be populated here -->
+            </tbody>
+          </table>
+        </section>
 
-            <!-- Products Section -->
-            <div id="products-section" class="admin-section" style="display: none;">
-                <h2>Products Management</h2>
-                <button onclick="showProductForm()" style="margin-bottom: 1rem; padding: 0.5rem 1rem; background: #1f7a5a; color: white; border: none; border-radius: 4px; cursor: pointer;">+ Add Product</button>
-                <div id="product-message-container"></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Image</th>
-                            <th>PDF</th>
-                            <th>Created By</th>
-                            <th>Updated By</th>
-                            <th>Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="product-table-body">
-                        <!-- Products will be populated here -->
-                    </tbody>
-                </table>
+        <section id="section-news" class="admin-section" style="display: none;">
+          <h2>News Management</h2>
+          <form id="newsForm" class="admin-form" enctype="multipart/form-data">
+            <h3 id="newsFormTitle">Create news</h3>
+            <input type="hidden" name="id" id="newsId" />
+            <label>
+              Title
+              <input type="text" name="title" required />
+            </label>
+            <label>
+              Content
+              <textarea name="content" rows="5" required></textarea>
+            </label>
+            <div class="form-row">
+              <label>
+                Image
+                <input type="file" name="image" accept="image/*" />
+              </label>
+              <label>
+                PDF
+                <input type="file" name="pdf_file" accept="application/pdf" />
+              </label>
             </div>
-        </main>
+            <div class="form-actions">
+              <button type="submit" class="pill">Save news</button>
+              <button type="button" class="pill secondary" id="newsCancel">Cancel edit</button>
+            </div>
+            <p id="newsFormNote" class="form-note"></p>
+          </form>
+
+          <table id="newsTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Image</th>
+                <th>PDF</th>
+                <th>Updated</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="news-table-body">
+              <!-- News will be populated here -->
+            </tbody>
+          </table>
+        </section>
+      </main>
     </div>
 
-    <footer>
-        <p>&copy; Copyright by Diona Hakaj and Eliza Halili</p>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>&copy; 2026 Tinker Bell's Garden — Diona Hakaj & Eliza Halili</p>
+        <nav class="footer-nav">
+          <a href="/flowers/">Flowers</a> · <a href="/aboutUs/">About</a> ·
+          <a href="/contact/">Contact</a>
+        </nav>
+      </div>
     </footer>
 
     <script src="../assets/js/auth.js"></script>
     <script src="../assets/js/admin.js"></script>
-</body>
-
+  </body>
 </html>
