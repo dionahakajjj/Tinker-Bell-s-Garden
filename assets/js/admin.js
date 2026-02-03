@@ -2,6 +2,7 @@ let productsCache = [];
 let newsCache = [];
 let adminNavLinks = [];
 
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", async () => {
   const user = await Auth.getCurrentUser();
   if (!user || user.role !== "admin") {
@@ -17,6 +18,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   loadUsers();
   loadProducts();
   loadNews();
+=======
+    // 2. Load Users
+    loadUsers();
+>>>>>>> cbd71d6ebb307c08dda4ac745bba9a9a3ef1d4ee
 });
 
 function setupAdminNav() {
@@ -167,6 +172,7 @@ function setupProductForm() {
     }
   });
 
+<<<<<<< HEAD
   if (cancelBtn) {
     cancelBtn.addEventListener("click", () => {
       resetProductForm();
@@ -451,4 +457,14 @@ function escapeHtml(text) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+=======
+function escapeHtml(text) {
+    if (!text) return '';
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+>>>>>>> cbd71d6ebb307c08dda4ac745bba9a9a3ef1d4ee
 }

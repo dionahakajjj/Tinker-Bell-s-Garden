@@ -80,6 +80,7 @@ header nav a.active {
   font-weight: 700;
 }
 
+<<<<<<< HEAD
 header nav .nav-user {
   font-weight: 600;
   color: var(--green-dark);
@@ -90,6 +91,8 @@ header nav .nav-logout {
   font-weight: 600;
 }
 
+=======
+>>>>>>> cbd71d6ebb307c08dda4ac745bba9a9a3ef1d4ee
 .logo h1 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
