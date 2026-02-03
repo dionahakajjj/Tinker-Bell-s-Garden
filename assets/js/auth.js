@@ -1,5 +1,4 @@
 const Auth = {
-<<<<<<< HEAD
   getCurrentUser: async () => {
     try {
       const response = await fetch("/backend-db/current_user.php", {
@@ -8,30 +7,6 @@ const Auth = {
       });
 
       if (!response.ok) return null;
-=======
-    login: async (email, password) => {
-        try {
-            // POST to the server-side login endpoint used in this project
-            const response = await fetch('/backend-db/login.php', {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({ email, password })
-            });
-
-            // Try to parse JSON; if server returned HTML (error page), surface it in console
-            let data;
-            const ct = response.headers.get('content-type') || '';
-            if (ct.includes('application/json')) {
-                data = await response.json();
-            } else {
-                const text = await response.text();
-                console.error('Login endpoint returned non-JSON response:\n', text);
-                return { success: false, message: 'Login failed: server returned an error (see console).' };
-            }
->>>>>>> cbd71d6ebb307c08dda4ac745bba9a9a3ef1d4ee
 
       const data = await response.json();
       if (data && data.success && data.user) return data.user;
